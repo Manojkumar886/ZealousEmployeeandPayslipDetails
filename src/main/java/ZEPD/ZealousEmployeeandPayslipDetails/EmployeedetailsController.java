@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EmployeedetailsController
@@ -34,5 +35,17 @@ public class EmployeedetailsController
     {
         Employeedetails temp=serv.creation(emp1);
         return  temp.getEmpName()+" has beem updated successfully";
+    }
+
+//    http://localhost:8082/deleting/{id}
+    @DeleteMapping("/deleting/{empid}")
+    public String removing(@PathVariable("empid") int empid )
+    {
+        return serv.erasing(empid);
+    }
+    @GetMapping("/fetchone/{id}")
+    public Optional<Employeedetails> readonly(@PathVariable("id") int id)
+    {
+        return  serv.fetchingone(id);
     }
 }

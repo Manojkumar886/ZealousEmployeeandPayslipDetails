@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeedetailsService
@@ -19,5 +20,17 @@ public class EmployeedetailsService
     public List<Employeedetails> Showall()
     {
         return (List<Employeedetails>) repo.findAll();
+    }
+
+    public String erasing(int id)
+    {
+        Employeedetails temp=repo.findById(id).orElse(new Employeedetails());
+        repo.delete(temp);
+        return  temp.getEmpName()+" deleted in my database";
+    }
+
+    public Optional<Employeedetails> fetchingone(int id)
+    {
+        return repo.findById(id);
     }
 }

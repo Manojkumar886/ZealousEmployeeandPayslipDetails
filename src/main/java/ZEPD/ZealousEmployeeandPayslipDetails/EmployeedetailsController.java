@@ -48,4 +48,22 @@ public class EmployeedetailsController
     {
         return  serv.fetchingone(id);
     }
+
+    @GetMapping("/fetchonebyname/{name}")
+    public List<Employeedetails> readbyname(@PathVariable("name")String name)
+    {
+        return serv.Fetchingonebyname(name);
+    }
+
+    @GetMapping("/toppestsalary/{salary}")
+    public List<Employeedetails> readhighest(@PathVariable("salary")double salary)
+    {
+        return serv.readgreatestsalaries(salary);
+    }
+
+    @PutMapping("/updatingsalary/{name}")
+    public void UpdatingSalary(@PathVariable("name")String name)
+    {
+        serv.updateonepersonsalary(name);
+    }
 }

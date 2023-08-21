@@ -31,7 +31,7 @@ public class Employeedetails
 //    Eager(many to one, one to one)
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @Nullable
-    @JoinTable(name = "All Records",joinColumns = @JoinColumn(name="empId")
+    @JoinTable(name = "AllRecords",joinColumns = @JoinColumn(name="empId")
             ,inverseJoinColumns = @JoinColumn(name = "payslipId"))
     private Collection<Payslipdetails> mypayslip=new ArrayList<Payslipdetails>();
 }

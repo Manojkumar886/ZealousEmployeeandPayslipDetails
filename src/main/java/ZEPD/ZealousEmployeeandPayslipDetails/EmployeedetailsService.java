@@ -33,4 +33,19 @@ public class EmployeedetailsService
     {
         return repo.findById(id);
     }
+
+    public List<Employeedetails> Fetchingonebyname(String name)
+    {
+        return repo.findAllByEmpName(name);
+    }
+
+    public List<Employeedetails> readgreatestsalaries(double salary)
+    {
+        return  repo.findAllByUserGreatestSalary(salary);
+    }
+
+    public void updateonepersonsalary(String empname)
+    {
+        repo.updateSalaryByname(empname);
+    }
 }

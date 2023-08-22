@@ -12,6 +12,8 @@ import java.util.Optional;
 public class EmployeedetailsController
 {
     @Autowired
+    PayslipdetailsService Pserv;
+    @Autowired
     EmployeedetailsService serv;
 //    http://localhost:8082/urlmapping
 //  URL MAPPINGs-  put(update),post(create),get(read ,list),delete(remove)
@@ -65,5 +67,29 @@ public class EmployeedetailsController
     public void UpdatingSalary(@PathVariable("name")String name)
     {
         serv.updateonepersonsalary(name);
+    }
+
+//    Payslip CRUDL Activations
+    @PostMapping("/createpayslip")
+    public Payslipdetails newpayslip(@RequestBody Payslipdetails payslip)
+    {
+        Employeedetails temp=serv.gettingexactnumber(payslip.getEmpdetails().getEmpId());
+
+        double monthlysalary= temp.getEmpSalary()/12;//480000/12=40000
+
+        double basicsalary=monthlysalary-(monthlysalary*(payslip.getPayslipAllowance())/100);//40000-(40000*2/100)-->40000-800--->39200
+
+        payslip.setPayslipBasicsalary(basicsalary);
+
+        monthlysalary=monthlysalary-(basicsalary*payslip.getPaysliptds()/100);//39200*18/100-->7056-40000--->32944
+        payslip.setPayslipTakehome(monthlysalary);
+
+        temp.getMypayslip().add(payslip);
+
+        Pserv.newpayslip(payslip);
+
+        serv.creation(temp);
+
+        return payslip;
     }
 }

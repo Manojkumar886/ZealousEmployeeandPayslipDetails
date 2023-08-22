@@ -48,4 +48,9 @@ public class EmployeedetailsService
     {
         repo.updateSalaryByname(empname);
     }
+
+    public Employeedetails gettingexactnumber(int id)
+    {
+        return repo.findById(id).orElse(new Employeedetails());
+    }
 }

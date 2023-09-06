@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.EnumMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -91,5 +94,21 @@ public class EmployeedetailsController
         serv.creation(temp);
 
         return payslip;
+    }
+
+    @GetMapping("getAllpayslip/{empid}")
+    public  List<Payslipdetails> callbyalldet(@PathVariable("empid")int empid)
+    {
+        Employeedetails emp1=serv.gettingexactnumber(empid);
+        return  Pserv.getbyempdetails(emp1);
+    }
+
+    @GetMapping("/bydates/{dt1}/{dt2}")
+    public  List<Payslipdetails> fetchingDates(@PathVariable("dt1")String dt1,@PathVariable("dt2")String dt2)throws ParseException
+    {
+        Date date1=new SimpleDateFormat("YYYY-MM-DD").parse(dt1);
+        Date date2=new SimpleDateFormat("YYYY-MM-DD").parse(dt2);
+        System.out.println(dt1+" to "+dt2);
+        return Pserv.getbybetweendates(date1,date2);
     }
 }

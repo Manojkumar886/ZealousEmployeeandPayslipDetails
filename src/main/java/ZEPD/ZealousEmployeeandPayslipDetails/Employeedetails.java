@@ -1,5 +1,6 @@
 package ZEPD.ZealousEmployeeandPayslipDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.Collection;
 public class Employeedetails
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private  int empId;
     private String empName;
     private String empUsername;
@@ -33,5 +34,6 @@ public class Employeedetails
     @Nullable
     @JoinTable(name = "AllRecords",joinColumns = @JoinColumn(name="empId")
             ,inverseJoinColumns = @JoinColumn(name = "payslipId"))
+    @JsonManagedReference
     private Collection<Payslipdetails> mypayslip=new ArrayList<Payslipdetails>();
 }

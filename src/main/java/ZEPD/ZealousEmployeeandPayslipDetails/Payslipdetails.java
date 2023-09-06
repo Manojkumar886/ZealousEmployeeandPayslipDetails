@@ -1,5 +1,6 @@
 package ZEPD.ZealousEmployeeandPayslipDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class Payslipdetails
 {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private  int payslipId;
+//    @JsonFormat(pattern="YYYY-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date payslipDate;
     private double payslipBasicsalary;
     private double paysliptds;
@@ -24,5 +27,6 @@ public class Payslipdetails
     @ManyToOne
     @JoinColumn(name = "empId")
     @Nullable
+    @JsonBackReference
     public Employeedetails empdetails;//empid
 }
